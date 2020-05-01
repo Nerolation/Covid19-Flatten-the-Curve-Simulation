@@ -19,7 +19,7 @@ if(length(as.numeric(input$city)) > 1) {
 infects_t0 <- input$infects
 
 #reduction of contact in %
-red <- input$reduction/100 + 1
+red <- (100-input$reduction)/100
 plots_ <- c(red)
 #population size
 if(!is.null(input$ppl2)) { ppl <- input$ppl2 }
@@ -34,13 +34,13 @@ if(!is.null(input$city)) { city <- input$city
 #Additional plots
 nr_ <- input$addplot
 
-if ("20 % reduction" %in% nr_) { plots_ <- c(plots_, 1.20) }
-if ("30 % reduction" %in% nr_) { plots_ <- c(plots_, 1.30) }
-if ("50 % reduction" %in% nr_) { plots_ <- c(plots_, 1.50) }
+if ("20 % reduction" %in% nr_) { plots_ <- c(plots_, 0.80) }
+if ("30 % reduction" %in% nr_) { plots_ <- c(plots_, 0.70) }
+if ("50 % reduction" %in% nr_) { plots_ <- c(plots_, 0.50) }
 
 #ODE System
 sir <- function(t, y, parms) {
-  beta <- parms[1]/i
+  beta <- parms[1]*i
   gamma <- parms[2]
   #beta <- ifelse(t<120, ifelse(t<70 && t> 10, beta/1.4, beta/1.4), beta)
   S <- y[1]
